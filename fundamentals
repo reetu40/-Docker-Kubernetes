@@ -1,0 +1,7 @@
+```containers``` are small independent processes which donot reqiure a VM
+```Microservice``` is a small service that does one task
+```API``` is the common language through various microservices in different language can talk
+
+```Benefits of Microservices```
+Resiliance,Flexible Scaling
+![alt text](image.png)
