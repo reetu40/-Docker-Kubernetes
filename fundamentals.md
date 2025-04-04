@@ -90,3 +90,46 @@ The Docker engine is a software program that runs on various operating systems (
   - Isolation: Containers are isolated from each other and the host system, enhancing security and preventing conflicts between applications.
 
 - **Real-World Example**: Consider a scenario where you have a containerized WordPress application. Multiple developers can work on this project simultaneously even if their development environments differ. The container itself includes all the necessary components (code, libraries, dependencies) to run WordPress, eliminating discrepancies caused by variations in individual development setups.
+
+# Lab Manual: Running "Hello World" in Docker
+## docker --version
+1. Check if the hello-world image is now present locally:
+# docker images
+2. There should not be any container images on your computer yet.
+3. Type and execute the following command:
+## docker run hello-world
+Explanation:
+○ docker run: This command creates and starts a new container.
+○ hello-world: This is the name of the Docker image that Docker will attempt to
+run. It is a small test image designed to validate that Docker is working properly.
+
+Step 4: List Docker Images
+1. Check if the hello-world image is now present locally:
+docker images
+Explanation:
+○ This command lists all Docker images available locally on your machine,
+including the one just pulled.
+Expected Output:
+REPOSITORY TAG IMAGE ID CREATED SIZE
+hello-world latest d1165f221234 2 months ago 13kB
+Step 5: Inspect the Container
+1. Check the list of containers (including stopped ones):
+docker ps -a
+Explanation:
+○ docker ps -a: Displays all containers, whether running or stopped.
+Expected Output:
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+123abc45defg hello-world "/hello" 1 minute ago Exited (0) About a minute ago quirky_panini
+Key Details:
+● CONTAINER ID: Unique ID for the container.
+● STATUS: Indicates that the container has exited since the hello-world container stops
+automatically after displaying its message.
+Step 6: Clean Up
+1. Remove the hello-world container:
+docker rm <CONTAINER ID>
+Replace <CONTAINER ID> with the actual container ID from the docker ps -a output.
+3. Remove the hello-world image:
+docker rmi hello-world
+Explanation:
+○ docker rm: Deletes containers.
+○ docker rmi: Deletes images from the local system
