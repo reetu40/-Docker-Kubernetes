@@ -1,4 +1,21 @@
-# Container and Microservices Notes
+# Container and Microservices Documentation
+
+## Table of Contents
+- [Key Concepts](#key-concepts)
+- [Benefits of Microservices](#benefits-of-microservices)
+- [Disadvantages of Microservices](#disadvantages-of-microservices)
+- [Containers vs Virtual Machines](#containers-vs-virtual-machines)
+- [Container Flow](#container-flow)
+- [Scaling Strategies](#scaling-strategies)
+- [Docker and Kubernetes](#docker-and-kubernetes)
+- [Docker Deep Dive](#docker-deep-dive)
+  - [Docker: Container Management Software](#11-docker-unveiling-the-container-management-software)
+  - [The Docker Engine](#12-the-docker-engine-the-runtime-platform)
+  - [Docker Images](#13-demystifying-docker-images-blueprints-for-containers)
+  - [Docker Containers](#14-unveiling-the-power-of-docker-containers)
+- [Docker Lab: Hello World](#lab-manual-running-hello-world-in-docker)
+- [Docker Lab: Python App](#docker-lab-python-application)
+- [Additional Resources](#additional-resources)
 
 ## Key Concepts
 
@@ -7,6 +24,9 @@ Containers are small independent processes which do not require a VM.
 
 ### Microservices
 A microservice is a small service that does one task.
+
+## Define Microservice
+![alt text](image-1.png)
 
 ### API
 API is the common language through which various microservices in different languages can talk.
@@ -18,57 +38,64 @@ API is the common language through which various microservices in different lang
 
 ![alt text](image.png)
 
-## Define Microservice
-![alt text](image-1.png)
-
-## Disadvantages [TODO add more]
+## Disadvantages of Microservices
 - Latency issues
 - Complexity
 - Distribution causes more calls
+- *TODO: Add more disadvantages*
 
 ## CONTAINER
 ![alt text](image-2.png)
 
-## VM vs CONTAINER
+## Containers vs Virtual Machines
 
-### VM
+### Virtual Machines
+VMs require a full OS installation and hypervisor, making them more resource-intensive.
+
 ![](image-3.png)
 
-### Container
+### Containers
+Containers share the host OS kernel and are more lightweight, providing better resource efficiency.
+
 ![](image-4.png)
 
 ## Container Flow
+Containers follow a defined lifecycle from creation to execution.
+
 ![alt text](image-5.png)
 
-## Horizontal vs Vertical Scaling
-Horizontal is more elastic - it scales when you need:
-- 1 pod becomes 2 pods or multiple (like 2 houses)
+## Scaling Strategies
 
-Vertical scaling is when you need more room so you add a floor to that house (add more CPU and memory to same container).
+### Horizontal vs Vertical Scaling
+- **Horizontal Scaling**: More elastic - scales when needed
+  - 1 pod becomes multiple pods (like building multiple houses)
+  - Lambdas use this approach and are managed by AWS
+  
+- **Vertical Scaling**: Adding more resources to existing containers
+  - Like adding floors to an existing house (more CPU/memory)
 
-Lambdas will horizontally scale and are managed by AWS.
+## Docker and Kubernetes
+Docker manages individual containers, while Kubernetes orchestrates container deployments at scale.
 
-## DOCKER and KUBERNETES
 ![alt text](image-6.png)
 
 ![alt text](image-7.png)
 
 ![alt text](image-8.png)
 
-## GOOD READ
-https://www.bmc.com/blogs/kubernetes-vs-docker-swarm/
+## Docker Deep Dive
 
-## 1.1 Docker: Unveiling the Container Management Software
+### 1.1 Docker: Unveiling the Container Management Software
 Docker serves two primary purposes:
 - **Container Management Software**: Docker acts as the central hub for managing your containerized environment. It allows you to:
   - Manage Docker images: These are blueprints that define the structure and contents of your containers.
   - Manage Docker volumes: These are persistent storage directories that containerized applications can leverage to store data independent of the container itself.
   - Manage Docker containers: These are the running instances of your applications built from Docker images.
 
-## 1.2 The Docker Engine: The Runtime Platform
+### 1.2 The Docker Engine: The Runtime Platform
 The Docker engine is a software program that runs on various operating systems (Linux, Windows Server) and provides the underlying runtime environment for your Docker containers. It essentially acts as the platform upon which your containers execute.
 
-## 1.3 Demystifying Docker Images: Blueprints for Containers
+### 1.3 Demystifying Docker Images: Blueprints for Containers
 - **What is a Docker Image?** An image is a self-contained template that defines the instructions for building a Docker container. It encapsulates everything required to run an application, including:
   - The application code itself
   - The operating system libraries and dependencies the application needs
@@ -81,7 +108,7 @@ The Docker engine is a software program that runs on various operating systems (
   - Portability: Since images contain everything a container needs, they are portable across different computing environments (physical machines, virtual machines, cloud platforms) as long as Docker is installed. This simplifies application deployment and streamlines development workflows.
   - Repeatability: Images ensure consistent application environments. Developers can be confident that their applications will run reliably regardless of the underlying system configurations.
 
-## 1.4 Unveiling the Power of Docker Containers
+### 1.4 Unveiling the Power of Docker Containers
 - **What is a Docker Container?** A container is a running instance of a Docker image. It's a lightweight, self-contained unit that encapsulates an application and all its dependencies. This ensures that the application runs consistently across different environments.
 
 - **Key Advantages of Containers**:
@@ -91,45 +118,119 @@ The Docker engine is a software program that runs on various operating systems (
 
 - **Real-World Example**: Consider a scenario where you have a containerized WordPress application. Multiple developers can work on this project simultaneously even if their development environments differ. The container itself includes all the necessary components (code, libraries, dependencies) to run WordPress, eliminating discrepancies caused by variations in individual development setups.
 
-# Lab Manual: Running "Hello World" in Docker
-## docker --version
-1. Check if the hello-world image is now present locally:
-# docker images
-2. There should not be any container images on your computer yet.
-3. Type and execute the following command:
-## docker run hello-world
-Explanation:
-○ docker run: This command creates and starts a new container.
-○ hello-world: This is the name of the Docker image that Docker will attempt to
-run. It is a small test image designed to validate that Docker is working properly.
+## Lab Manual: Running "Hello World" in Docker
 
-Step 4: List Docker Images
-1. Check if the hello-world image is now present locally:
+### Step 1: Verify Docker Installation
+```bash
+docker --version
+```
+
+### Step 2: Run Hello World Container
+```bash
+docker run hello-world
+```
+**Explanation**:
+- `docker run`: Creates and starts a new container
+- `hello-world`: Name of the Docker image to run
+
+### Step 3: List Docker Images
+```bash
 docker images
-Explanation:
-○ This command lists all Docker images available locally on your machine,
-including the one just pulled.
-Expected Output:
-REPOSITORY TAG IMAGE ID CREATED SIZE
-hello-world latest d1165f221234 2 months ago 13kB
-Step 5: Inspect the Container
-1. Check the list of containers (including stopped ones):
+```
+**Expected Output**:
+```
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    d1165f221234   2 months ago   13kB
+```
+
+### Step 4: Inspect the Container
+```bash
 docker ps -a
-Explanation:
-○ docker ps -a: Displays all containers, whether running or stopped.
-Expected Output:
-CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
-123abc45defg hello-world "/hello" 1 minute ago Exited (0) About a minute ago quirky_panini
-Key Details:
-● CONTAINER ID: Unique ID for the container.
-● STATUS: Indicates that the container has exited since the hello-world container stops
-automatically after displaying its message.
-Step 6: Clean Up
-1. Remove the hello-world container:
+```
+**Explanation**:
+- `docker ps -a`: Displays all containers, whether running or stopped
+
+**Expected Output**:
+```
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS   NAMES
+123abc45defg   hello-world   "/hello"   1 minute ago     Exited (0) 1 minute ago             quirky_panini
+```
+
+### Step 5: Clean Up
+```bash
 docker rm <CONTAINER ID>
-Replace <CONTAINER ID> with the actual container ID from the docker ps -a output.
-3. Remove the hello-world image:
 docker rmi hello-world
-Explanation:
-○ docker rm: Deletes containers.
-○ docker rmi: Deletes images from the local system
+```
+**Explanation**:
+- `docker rm`: Deletes containers
+- `docker rmi`: Deletes images from the local system
+
+## Docker Lab: Python Application
+
+### Step 1: Create Project Directory
+Create a directory named `rick-docker` to hold your project files.
+
+### Step 2: Write a Simple Python Script
+Create a file named `app.py` in the `rick-docker` folder:
+
+```python
+print("Hello from Docker!")
+```
+
+### Step 3: Create a Dockerfile
+Create a file named `Dockerfile` (no extension) in the same folder:
+
+```dockerfile
+# Use an official Python runtime as a base image
+FROM python:3.9-slim
+
+# Copy the Python script into the container
+COPY app.py /app/app.py
+
+# Set the working directory
+WORKDIR /app
+
+# Define the command to run the Python script
+CMD ["python", "app.py"]
+```
+
+**Explanation**:
+- `FROM`: Specifies the base image to use (Python 3.9 slim version)
+- `COPY`: Copies the app.py file from your local system into the container
+- `WORKDIR`: Sets the working directory for subsequent commands
+- `CMD`: Specifies the command to run when the container starts
+
+### Step 4: Build the Docker Image
+```bash
+docker build -t my-python-app .
+```
+
+**Explanation**:
+- `docker build`: Command to build a Docker image
+- `-t my-python-app`: Tags the image with the name "my-python-app"
+- `.`: Refers to the current directory where the Dockerfile is located
+
+### Step 5: Run the Docker Container
+```bash
+docker run my-python-app
+```
+
+**Expected Output**:
+```
+Hello from Docker!
+```
+
+### Step 6: Verify the Docker Image
+```bash
+docker images
+```
+
+### Step 7: Clean Up
+```bash
+docker ps -a
+docker rm <CONTAINER ID>
+docker rmi my-python-app
+```
+
+## Additional Resources
+- [Kubernetes vs Docker Swarm](https://www.bmc.com/blogs/kubernetes-vs-docker-swarm/)
